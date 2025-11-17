@@ -1,31 +1,411 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-  <title>Pianoo - Chords & Scales App</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <link rel="stylesheet" href="Styles/normalize.css">
-  <link rel="stylesheet" href="Styles/skeleton.css">
-  <link rel="stylesheet" href="Styles/styles.css">
-</head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pianoo – Your Digital Music Library</title>
+  <style>
+  :root {
+    /* angepasste Farben */
+    --bg: #f4f4f7;           /* helles Grau wie im App-Hintergrund */
+    --card-bg: #ffffff;
+    --text-main: #111827;    /* leicht dunkles Grau statt tiefschwarz */
+    --text-muted: #6b7280;   /* soft grey */
+    --primary: #7c3aed;      /* Lila-Akzent ähnlich deinen Keys */
+    --primary-soft: #ede9fe; /* helles Lila für Badges */
+    --border-soft: #e5e7eb;
+    --radius-lg: 20px;
+    --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.10);
+  }
 
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text-main);
+  }
+
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .container {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* Top Navigation */
+
+.top-nav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  backdrop-filter: blur(10px);
+  background: rgba(244, 244, 247, 0.92);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+  padding-left: 16px;   /*  <-- NEU: fixes padding */
+  padding-right: 16px;  /*  <-- NEU */
+}
+
+.top-nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 16px 0; /* vertikales Padding bleibt im Inneren */
+}
+
+
+  .logo {
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    font-size: 1.1rem;
+  }
+
+  .btn-primary {
+    padding: 10px 18px;
+    border-radius: 999px;
+    background: var(--primary);
+    color: white;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(124, 58, 237, 0.35);
+  }
+
+  .btn-primary:hover {
+    filter: brightness(1.05);
+  }
+
+  /* Hero */
+
+  .hero {
+    padding: 60px 0 40px;
+  }
+
+  .hero-inner {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  .hero-text {
+    flex: 1 1 320px;
+    min-width: 280px;
+  }
+
+  .hero-eyebrow {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--text-muted);
+    margin-bottom: 14px;
+  }
+
+  .hero-title {
+    font-size: clamp(2.4rem, 4vw, 3.1rem);
+    line-height: 1.05;
+    margin: 0 0 16px;
+  }
+
+  .hero-subtitle {
+    font-size: 1rem;
+    color: var(--text-muted);
+    max-width: 460px;
+    margin-bottom: 26px;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .hero-secondary {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+  }
+
+  /* Hero Image / Device */
+
+ .hero-media-wrapper {
+  flex: 1 1 320px;
+  display: flex;
+  justify-content: center;
+}
+
+/* Clean, minimaler Container ohne künstlichen Rahmen */
+.hero-media {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  border-radius: 32px;       /* leicht abgerundet */
+  padding: 0;                /* kein Padding */
+  background: none;          /* kein künstlicher Hintergrund */
+  box-shadow: none;          /* kein künstlicher Rahmen-Schatten */
+}
+
+/* Dein App Screenshot */
+.hero-image {
+  display: block;
+  width: 70%;
+  height: auto;
+  border-radius: 32px;       /* exakt wie dein iPhone-Rahmen */
+  margin-right: 0px;   /* <-- Bild wandert komplett nach rechts */
+}
+
+  /* Logos */
+
+  .trusted {
+    padding: 20px 0 40px;
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+
+  .trusted-logos {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    flex-wrap: wrap;
+    margin-top: 16px;
+    opacity: 0.85;
+  }
+
+  .trusted-logos span {
+    border-radius: 999px;
+    border: 1px dashed #d4d4d8;
+    padding: 4px 12px;
+    font-size: 0.78rem;
+  }
+
+  /* Features */
+
+  .features {
+    padding: 20px 0 70px;
+  }
+
+  .section-label {
+    text-align: center;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+  }
+
+  .section-title {
+    text-align: center;
+    font-size: 1.8rem;
+    margin-bottom: 8px;
+  }
+
+  .section-subtitle {
+    text-align: center;
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    margin-bottom: 28px;
+  }
+
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 18px;
+  }
+
+  .feature-card {
+    background: var(--card-bg);
+    border-radius: var(--radius-lg);
+    padding: 18px 18px 20px;
+    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.06);
+    border: 1px solid var(--border-soft);
+  }
+
+  .feature-title {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+
+  .feature-text {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: 14px;
+  }
+
+  .feature-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8rem;
+    padding: 6px 10px;
+    border-radius: 999px;
+    background: var(--primary-soft);
+    color: var(--primary);
+  }
+
+  /* Footer */
+
+  footer {
+    padding: 28px 0 40px;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    text-align: center;
+  }
+
+  /* Responsive */
+
+  @media (max-width: 768px) {
+    .top-nav-inner {
+      gap: 12px;
+    }
+    .nav-links {
+      display: none;
+    }
+    .hero {
+      padding-top: 32px;
+    }
+    .hero-inner {
+      flex-direction: column;
+    }
+    .hero-media-wrapper {
+      order: -1;
+    }
+  }
+</style>
+</head>
 <body>
-  <div class="container">
-    <div class="header">
-      <h3 class="main-header">pianoo.app</h3>
+  <!-- Navigation -->
+  <header class="top-nav">
+    <div class="container top-nav-inner">
+      <div class="logo">Pianoo</div>
+      <button class="btn-primary">Download on the App&nbsp;Store</button>
     </div>
-    <div>
-      <a href="terms.html">Terms and Conditions</a>
-    </div>
-    <div class="separator"></div>
-      <div style="margin-top:3em">
-        Under construction ...
+  </header>
+
+  <main class="container">
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero-inner">
+        <div class="hero-text">
+          <div class="hero-eyebrow">Your digital music library</div>
+          <h1 class="hero-title">Discover chords, scales & progressions in seconds.</h1>
+          <p class="hero-subtitle">
+            Pianoo is your ultimate musical companion – whether you're writing your first song,
+            practicing jazz improvisation, or just exploring new ideas at the piano.
+          </p>
+
+          <div class="hero-actions">
+            <button class="btn-primary">Get Pianoo for iOS</button>
+            <span class="hero-secondary">Built for songwriters, pianists & music lovers.</span>
+          </div>
+        </div>
+
+        <!-- Hero Image instead of phone mockup -->
+        <div class="hero-media-wrapper">
+          <div class="hero-media">
+            <img
+              src="pianoo-hero.png"
+              alt="Screenshot of the Pianoo iOS app"
+              class="hero-image"
+            />
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="footer">
-      &copy; 2025 Sebastian Boldt&nbsp;-&nbsp;<a href="https://sebastianboldt.io/privacy.html">Privacy</a>
-    </div>
-  </div>
+    </section>
+
+    <!-- Trusted logos -->
+    <section class="trusted" id="for-whom">
+      <div  id="features">Made for musicians of all levels</div>
+      <div class="trusted-logos">
+        <span>Songwriters</span>
+        <span>Pianists</span>
+        <span>Producers</span>
+        <span>Students</span>
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features" id="features">
+      <div class="section-label">Features</div>
+      <h2 class="section-title">Everything you need at the keyboard</h2>
+      <p class="section-subtitle">
+        Vast chord & scale libraries, smart tools and a friendly interface – Pianoo keeps your
+        musical toolkit in one place.
+      </p>
+
+      <div class="feature-grid">
+        <article class="feature-card">
+          <h3 class="feature-title">Vast Chord Library</h3>
+          <p class="feature-text">
+            Browse from basic major and minor chords to complex extended and altered voicings – always in the key you need.
+          </p>
+          <span class="feature-pill">All the chords</span>
+        </article>
+
+        <article class="feature-card">
+          <h3 class="feature-title">Scales Galore</h3>
+          <p class="feature-text">
+            Practice improvisation or sketch new ideas with a broad collection of scales for every key and style.
+          </p>
+          <span class="feature-pill">Modes & more</span>
+        </article>
+
+        <article class="feature-card">
+          <h3 class="feature-title">Chord Progressions</h3>
+          <p class="feature-text">
+            Understand and experiment with common progressions to spark songwriting
+            and improve your harmonic ear.
+          </p>
+          <span class="feature-pill">Interactive tool</span>
+        </article>
+
+        <article class="feature-card">
+          <h3 class="feature-title">Favorites</h3>
+          <p class="feature-text">
+            Save your most-used chords, scales and progressions so your go-to sounds are always one tap away.
+          </p>
+          <span class="feature-pill">Personal library</span>
+        </article>
+
+        <article class="feature-card">
+          <h3 class="feature-title">User-Friendly Interface</h3>
+          <p class="feature-text">
+            Pianoo is designed for musicians of all levels with a clean, intuitive layout that keeps you in the flow.
+          </p>
+          <span class="feature-pill">Sleek & simple</span>
+        </article>
+
+        <article class="feature-card">
+          <h3 class="feature-title">For Every Skill Level</h3>
+          <p class="feature-text">
+            From beginners learning their first triads to advanced players mastering jazz harmony –
+            Pianoo grows with you.
+          </p>
+          <span class="feature-pill">Beginner to pro</span>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © <span id="year"></span> Pianoo. All rights reserved.
+    <a href="terms.html">Terms and Conditions</a>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
