@@ -142,7 +142,7 @@
  .hero-media-wrapper {
   flex: 1 1 320px;
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;  /* Bild wandert nach rechts */
 }
 
 /* Clean, minimaler Container ohne künstlichen Rahmen */
@@ -158,9 +158,8 @@
 /* Dein App Screenshot */
 .hero-image {
   display: block;
-  width: 70%;
+  width: 90%;
   height: auto;
-  border-radius: 32px;       /* exakt wie dein iPhone-Rahmen */
   margin-right: 0px;   /* <-- Bild wandert komplett nach rechts */
 }
 
@@ -184,7 +183,7 @@
 
   .trusted-logos span {
     border-radius: 999px;
-    border: 1px dashed #d4d4d8;
+    border: 1px solid #d4d4d8;
     padding: 4px 12px;
     font-size: 0.78rem;
   }
@@ -298,7 +297,7 @@
     <section class="hero">
       <div class="hero-inner">
         <div class="hero-text">
-          <div class="hero-eyebrow">Your digital music library</div>
+          <div class="hero-eyebrow">Your digital chord & scale library</div>
           <h1 class="hero-title">Discover chords, scales & progressions in seconds.</h1>
           <p class="hero-subtitle">
             Pianoo is your ultimate musical companion – whether you're writing your first song,
@@ -307,7 +306,7 @@
 
           <div class="hero-actions">
             <button class="btn-primary">Get Pianoo for iOS</button>
-            <span class="hero-secondary">Built for songwriters, pianists & music lovers.</span>
+            <span class="hero-secondary"> Runs on iPhone, iPad and Mac</span>
           </div>
         </div>
 
@@ -346,19 +345,19 @@
 
       <div class="feature-grid">
         <article class="feature-card">
-          <h3 class="feature-title">Vast Chord Library</h3>
+          <h3 class="feature-title">Chord Library</h3>
           <p class="feature-text">
             Browse from basic major and minor chords to complex extended and altered voicings – always in the key you need.
           </p>
-          <span class="feature-pill">All the chords</span>
+          <span class="feature-pill">177 Chord Types</span>
         </article>
 
         <article class="feature-card">
-          <h3 class="feature-title">Scales Galore</h3>
+          <h3 class="feature-title">Scales Library</h3>
           <p class="feature-text">
             Practice improvisation or sketch new ideas with a broad collection of scales for every key and style.
           </p>
-          <span class="feature-pill">Modes & more</span>
+          <span class="feature-pill">110 Scales</span>
         </article>
 
         <article class="feature-card">
@@ -367,15 +366,16 @@
             Understand and experiment with common progressions to spark songwriting
             and improve your harmonic ear.
           </p>
-          <span class="feature-pill">Interactive tool</span>
+          <span class="feature-pill">119 Chord Progressions</span>
         </article>
 
         <article class="feature-card">
           <h3 class="feature-title">Favorites</h3>
           <p class="feature-text">
-            Save your most-used chords, scales and progressions so your go-to sounds are always one tap away.
+            Save your most-used chords, scales and progressions to your own collections, 
+            so your go-to sounds are always one tap away.
           </p>
-          <span class="feature-pill">Personal library</span>
+          <span class="feature-pill">Custom Collections</span>
         </article>
 
         <article class="feature-card">
@@ -383,7 +383,7 @@
           <p class="feature-text">
             Pianoo is designed for musicians of all levels with a clean, intuitive layout that keeps you in the flow.
           </p>
-          <span class="feature-pill">Sleek & simple</span>
+          <span class="feature-pill">Dark Mode and Theming</span>
         </article>
 
         <article class="feature-card">
